@@ -101,6 +101,7 @@ class MainPreferencesFragment : BasePreferenceFragment() {
         val navActions = mapOf(
             Constants.NAV_SELECTOR_PREF_KEY to R.id.settingsFragmentSelector,
             Constants.NAV_VOICE_INPUT_PREF_KEY to R.id.settingsFragmentVoiceInput,
+            Constants.NAV_WAKE_WORD_PREF_KEY to R.id.settingsFragmentWakeWord,
             Constants.NAV_ACCESSIBILITY_PREF_KEY to R.id.settingsFragmentAccessibility,
             Constants.NAV_SHORTCUTS_PREF_KEY to R.id.settingsFragmentShortcuts,
             Constants.NAV_APPEARANCE_PREF_KEY to R.id.settingsFragmentAppearance,
