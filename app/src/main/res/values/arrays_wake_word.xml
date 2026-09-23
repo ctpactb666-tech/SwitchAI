@@ -1,0 +1,11 @@
+<resources>
+    <string-array name="owner_voice_reject_entries">
+        <item>@string/owner_voice_reject_silent</item>
+        <item>@string/owner_voice_reject_reply</item>
+    </string-array>
+
+    <string-array name="owner_voice_reject_values">
+        <item>silent</item>
+        <item>reply</item>
+    </string-array>
+</resources>
