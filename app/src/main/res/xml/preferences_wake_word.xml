@@ -1,0 +1,67 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="wake_word_enabled"
+        android:summary="@string/pref_wake_word_enabled_summary"
+        android:title="@string/pref_wake_word_enabled"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_material_switch_bar"
+        tools:widgetLayout="@layout/preference_material_switch" />
+
+    <PreferenceCategory
+        android:layout="@layout/preference_material_category"
+        android:title="@string/pref_wake_word_category_phrases"
+        app:allowDividerAbove="false" />
+
+    <Preference
+        android:key="wake_word_phrases_manage"
+        android:summary="@string/pref_wake_word_phrases_summary"
+        android:title="@string/pref_wake_word_phrases"
+        app:layout="@layout/preference_material_single" />
+
+    <PreferenceCategory
+        android:layout="@layout/preference_material_category"
+        android:title="@string/pref_owner_voice_category"
+        app:allowDividerAbove="false" />
+
+    <Preference
+        android:key="owner_voice_enroll"
+        android:summary="@string/pref_owner_voice_enroll_summary"
+        android:title="@string/pref_owner_voice_enroll"
+        app:layout="@layout/preference_material_top" />
+
+    <Preference
+        android:key="owner_voice_test"
+        android:summary="@string/pref_owner_voice_test_summary"
+        android:title="@string/pref_owner_voice_test"
+        app:layout="@layout/preference_material_middle" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="owner_voice_only"
+        android:summary="@string/pref_owner_voice_only_summary"
+        android:title="@string/pref_owner_voice_only"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_material_middle"
+        tools:widgetLayout="@layout/preference_material_switch" />
+
+    <ListPreference
+        android:defaultValue="silent"
+        android:entries="@array/owner_voice_reject_entries"
+        android:entryValues="@array/owner_voice_reject_values"
+        android:key="owner_voice_reject_action"
+        android:summary="@string/pref_owner_voice_reject_action_summary"
+        android:title="@string/pref_owner_voice_reject_action"
+        app:layout="@layout/preference_material_bottom"
+        app:useSimpleSummaryProvider="true" />
+
+    <Preference
+        android:summary="@string/pref_owner_voice_lock_summary"
+        android:title="@string/pref_owner_voice_lock"
+        android:selectable="false"
+        app:layout="@layout/preference_material_info_top" />
+
+</androidx.preference.PreferenceScreen>
