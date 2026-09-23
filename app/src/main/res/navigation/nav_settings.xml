@@ -19,6 +19,10 @@
             app:destination="@id/voiceInputPreferencesFragment" />
 
         <action
+            android:id="@+id/settingsFragmentWakeWord"
+            app:destination="@id/wakeWordPreferencesFragment" />
+
+        <action
             android:id="@+id/settingsFragmentAccessibility"
             app:destination="@id/accessibilityPreferencesFragment" />
 
@@ -45,6 +49,12 @@
         android:id="@+id/voiceInputPreferencesFragment"
         android:name="com.wstxda.switchai.fragment.preferences.VoiceInputPreferencesFragment"
         android:label="@string/pref_screen_voice_input"
+        tools:layout="@layout/activity_main" />
+
+    <fragment
+        android:id="@+id/wakeWordPreferencesFragment"
+        android:name="com.wstxda.switchai.fragment.preferences.WakeWordPreferencesFragment"
+        android:label="@string/pref_screen_wake_word"
         tools:layout="@layout/activity_main" />
 
     <fragment
