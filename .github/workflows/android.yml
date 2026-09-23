@@ -3,7 +3,7 @@ name: Android CI
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: ["main", "feature/wake-word"]
   pull_request:
     branches: ["main"]
 
