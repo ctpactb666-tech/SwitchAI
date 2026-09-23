@@ -14,11 +14,24 @@ import com.wstxda.switchai.R
 class WakeWordService : Service() {
 
     private val ownerSecurity by lazy { OwnerVoiceSecurity(this) }
+    private val coordinator by lazy { WakeWordCoordinator(this) }
+    private var phraseRecognizer: OnDevicePhraseRecognizer? = null
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
         startAsForeground()
+
+        phraseRecognizer = OnDevicePhraseRecognizer(
+            context = this,
+            onText = { recognized ->
+                when (coordinator.onRecognizedText(recognized)) {
+                    WakeWordCoordinator.Result.Locked -> stopSelf()
+                    else -> Unit
+                }
+            },
+            onUnavailable = { stopSelf() },
+        )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -27,9 +40,14 @@ class WakeWordService : Service() {
             return START_NOT_STICKY
         }
 
-        // Recognition engine will be attached here. The service lifecycle,
-        // microphone FGS declaration and owner-lock guard are already in place.
+        phraseRecognizer?.start()
         return START_STICKY
+    }
+
+    override fun onDestroy() {
+        phraseRecognizer?.stop()
+        phraseRecognizer = null
+        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
