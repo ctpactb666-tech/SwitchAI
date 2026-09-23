@@ -1,35 +1,35 @@
 package com.wstxda.switchai.wakeword
 
 import android.content.Context
-import androidx.preference.PreferenceManager
 
 class OwnerVoiceVerifier(context: Context) {
 
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val profileStore = OwnerVoiceProfileStore(context)
 
-    fun hasProfile(): Boolean =
-        prefs.getBoolean(KEY_PROFILE_READY, false)
+    fun hasProfile(): Boolean = profileStore.isReady()
 
-    fun markProfileReady(ready: Boolean) {
-        prefs.edit().putBoolean(KEY_PROFILE_READY, ready).apply()
+    fun verify(candidateEmbedding: FloatArray?): Verification {
+        val profile = profileStore.load() ?: return Verification.NoProfile
+        val candidate = candidateEmbedding ?: return Verification.NoCandidate
+
+        val score = OwnerVoiceProfileStore.cosineSimilarity(profile, candidate)
+        return if (score >= DEFAULT_THRESHOLD) {
+            Verification.Verified(score)
+        } else {
+            Verification.Rejected(score)
+        }
     }
 
-    /**
-     * Speaker embedding verification is intentionally fail-closed.
-     * Until the local speaker model is connected and enrollment has produced
-     * a valid profile, no wake phrase is allowed to launch an assistant.
-     */
-    fun verifyLatestUtterance(): Verification =
-        if (hasProfile()) Verification.ModelRequired else Verification.NoProfile
-
     sealed interface Verification {
-        data object Verified : Verification
-        data object Rejected : Verification
+        data class Verified(val score: Float) : Verification
+        data class Rejected(val score: Float) : Verification
         data object NoProfile : Verification
-        data object ModelRequired : Verification
+        data object NoCandidate : Verification
     }
 
     companion object {
-        private const val KEY_PROFILE_READY = "owner_voice_profile_ready"
+        // Initial threshold. It will be exposed as an advanced setting after
+        // device testing with the selected speaker-embedding model.
+        const val DEFAULT_THRESHOLD = 0.72f
     }
 }
