@@ -40,6 +40,12 @@
         app:layout="@layout/preference_material_middle" />
 
     <Preference
+        android:icon="@drawable/ic_voice_input"
+        android:key="nav_wake_word"
+        android:title="@string/pref_screen_wake_word"
+        app:layout="@layout/preference_material_middle" />
+
+    <Preference
         android:icon="@drawable/ic_accessibility"
         android:key="nav_accessibility"
         android:title="@string/pref_screen_accessibility"
