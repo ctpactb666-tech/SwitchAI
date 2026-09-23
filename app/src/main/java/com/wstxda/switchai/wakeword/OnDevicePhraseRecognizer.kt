@@ -24,20 +24,17 @@ class OnDevicePhraseRecognizer(
         if (running) return
         running = true
         mainHandler.post {
-            if (!SpeechRecognizer.isRecognitionAvailable(context)) {
+            val onDeviceAvailable =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                    SpeechRecognizer.isOnDeviceRecognitionAvailable(context)
+
+            if (!onDeviceAvailable) {
                 running = false
                 onUnavailable()
                 return@post
             }
 
-            recognizer = if (
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-                SpeechRecognizer.isOnDeviceRecognitionAvailable(context)
-            ) {
-                SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
-            } else {
-                SpeechRecognizer.createSpeechRecognizer(context)
-            }.also {
+            recognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(context).also {
                 it.setRecognitionListener(this)
             }
 
