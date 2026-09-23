@@ -1,7 +1,7 @@
 package com.wstxda.switchai.integration
 
 import android.content.Context
-import com.wstxda.switchai.logic.PackageChecker
+import android.content.pm.PackageManager
 import com.wstxda.switchai.utils.AssistantsMap
 
 object AssistantLaunchPolicy {
@@ -16,7 +16,7 @@ object AssistantLaunchPolicy {
         val preferences = AssistantConnectionPreferences(context)
         val mode = preferences.getMode(assistantKey)
         val packageName = AssistantsMap.assistantPackage[assistantKey]
-        val appInstalled = packageName != null && PackageChecker(context).isInstalled(packageName)
+        val appInstalled = packageName?.let { isPackageInstalled(context, it) } == true
         val embeddedReady = preferences.isEmbeddedSessionConnected(assistantKey)
 
         return when (mode) {
@@ -34,4 +34,12 @@ object AssistantLaunchPolicy {
                 }
         }
     }
+
+    private fun isPackageInstalled(context: Context, packageName: String): Boolean =
+        try {
+            context.packageManager.getPackageInfo(packageName, 0)
+            true
+        } catch (_: PackageManager.NameNotFoundException) {
+            false
+        }
 }
