@@ -1,5 +1,6 @@
 name: Android CI
 # CI trigger for wake-word branch
+# second CI trigger
 
 on:
   workflow_dispatch:
