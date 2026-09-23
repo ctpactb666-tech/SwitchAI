@@ -9,42 +9,45 @@ class WakeWordCoordinator(context: Context) {
     private val security = OwnerVoiceSecurity(context)
     private val appContext = context.applicationContext
 
-    fun onRecognizedText(text: String): Result {
+    fun onRecognizedText(
+        text: String,
+        speakerEmbedding: FloatArray? = null,
+    ): Result {
         if (security.isLocked) return Result.Locked
 
         val phrase = WakePhraseMatcher.match(text, phraseStore.load())
             ?: return Result.NoWakePhrase
 
-        return when (verifier.verifyLatestUtterance()) {
-            OwnerVoiceVerifier.Verification.Verified -> {
+        return when (val verification = verifier.verify(speakerEmbedding)) {
+            is OwnerVoiceVerifier.Verification.Verified -> {
                 security.onOwnerVerified()
                 if (WakeAssistantLauncher.launch(appContext, phrase)) {
-                    Result.Launched(phrase)
+                    Result.Launched(phrase, verification.score)
                 } else {
                     Result.AssistantUnavailable
                 }
             }
 
-            OwnerVoiceVerifier.Verification.Rejected -> {
+            is OwnerVoiceVerifier.Verification.Rejected -> {
                 when (val securityResult = security.onOwnerRejected()) {
                     OwnerVoiceSecurity.Result.Locked -> Result.Locked
                     is OwnerVoiceSecurity.Result.Rejected ->
-                        Result.OwnerRejected(securityResult.attempts)
+                        Result.OwnerRejected(securityResult.attempts, verification.score)
                 }
             }
 
             OwnerVoiceVerifier.Verification.NoProfile -> Result.OwnerProfileMissing
-            OwnerVoiceVerifier.Verification.ModelRequired -> Result.OwnerModelNotReady
+            OwnerVoiceVerifier.Verification.NoCandidate -> Result.OwnerSampleMissing
         }
     }
 
     sealed interface Result {
         data object NoWakePhrase : Result
-        data class Launched(val phrase: WakePhrase) : Result
+        data class Launched(val phrase: WakePhrase, val ownerScore: Float) : Result
         data object AssistantUnavailable : Result
-        data class OwnerRejected(val attempts: Int) : Result
+        data class OwnerRejected(val attempts: Int, val ownerScore: Float) : Result
         data object OwnerProfileMissing : Result
-        data object OwnerModelNotReady : Result
+        data object OwnerSampleMissing : Result
         data object Locked : Result
     }
 }
