@@ -218,4 +218,29 @@
     <string name="widget_invisible_description">ويدجيت مخفي للوصول إلى مساعدك</string>
     <!--pinning widget-->
     <string name="widget_launcher_not_supported">برنامج الشاشة الرئيسية لا يدعم تثبيت الويدجيت</string>
+
+    <!--voice activation-->
+    <string name="pref_screen_wake_word">التفعيل الصوتي</string>
+    <string name="pref_wake_word_enabled">التفعيل الصوتي</string>
+    <string name="pref_wake_word_enabled_summary">الاستماع لعبارات التفعيل المحددة في الخلفية</string>
+    <string name="pref_wake_word_category_phrases">عبارات التفعيل</string>
+    <string name="pref_wake_word_phrases">إدارة العبارات</string>
+    <string name="pref_wake_word_phrases_summary">أضف عبارات مخصصة واربط كل عبارة بمساعد</string>
+    <string name="pref_owner_voice_category">التعرّف على المالك</string>
+    <string name="pref_owner_voice_enroll">تدريب صوتي</string>
+    <string name="pref_owner_voice_enroll_summary">سجّل 10 عبارات مختلفة لإنشاء ملف صوتي محلي</string>
+    <string name="pref_owner_voice_test">اختبار صوتي</string>
+    <string name="pref_owner_voice_test_summary">إجراء اختبار تحقق للملف الصوتي المحفوظ</string>
+    <string name="pref_owner_voice_only">الاستجابة لصوتي فقط</string>
+    <string name="pref_owner_voice_only_summary">تجاهل الأوامر إذا لم يطابق المتحدث صوت المالك</string>
+    <string name="pref_owner_voice_reject_action">الاستجابة لصوت غير معروف</string>
+    <string name="pref_owner_voice_reject_action_summary">اختر ما يحدث عند عدم التحقق من المتحدث</string>
+    <string name="owner_voice_reject_silent">البقاء صامتًا</string>
+    <string name="owner_voice_reject_reply">قول «أنا لا أفهمك»</string>
+    <string name="pref_owner_voice_lock">القفل بعد 3 محاولات فاشلة</string>
+    <string name="pref_owner_voice_lock_summary">بعد ثلاث محاولات فاشلة يبقى التفعيل الصوتي مقفلاً حتى فتح الهاتف</string>
+    <string name="wake_word_notification_channel">التفعيل الصوتي</string>
+    <string name="wake_word_notification_title">SwitchAI يستمع</string>
+    <string name="wake_word_notification_text">التعرّف على صوت المالك مفعّل</string>
+
 </resources>
