@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_assistant"
+        android:title="Главная" />
+    <item
+        android:id="@+id/assistantsFragment"
+        android:icon="@drawable/ic_select"
+        android:title="Ассистенты" />
+    <item
+        android:id="@+id/commandsFragment"
+        android:icon="@drawable/ic_voice_input"
+        android:title="Команды" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="Настройки" />
+</menu>
