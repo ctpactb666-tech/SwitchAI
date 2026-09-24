@@ -1,0 +1,84 @@
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Команды"
+            android:textColor="@android:color/white"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Голос, фразы и автоматизация"
+            android:textColor="@color/ai_text_secondary"
+            android:textSize="14sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/openActivation"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/ai_card"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="#504CC9FF"
+            app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="horizontal" android:padding="18dp">
+                <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_ai_orb" android:padding="13dp" android:src="@drawable/ic_voice_input" app:tint="@android:color/white" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Голосовая активация" android:textColor="@android:color/white" android:textSize="18sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Настройте фразу и чувствительность" android:textColor="@color/ai_text_secondary" android:textSize="13sp" />
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="›" android:textColor="@color/neon_blue" android:textSize="34sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/openPhrases"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/ai_card"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="#508B7CFF"
+            app:strokeWidth="1dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="horizontal" android:padding="18dp">
+                <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_ai_orb" android:padding="13dp" android:src="@drawable/ic_select" app:tint="@android:color/white" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Фразы активации" android:textColor="@android:color/white" android:textSize="18sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Добавляйте и включайте свои команды" android:textColor="@color/ai_text_secondary" android:textSize="13sp" />
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="›" android:textColor="@color/neon_violet" android:textSize="34sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/openOwnerVoice"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/ai_card"
+            app:cardCornerRadius="20dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center_vertical" android:orientation="horizontal" android:padding="18dp">
+                <ImageView android:layout_width="56dp" android:layout_height="56dp" android:background="@drawable/bg_ai_orb" android:padding="13dp" android:src="@drawable/ic_accessibility" app:tint="@android:color/white" />
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Мой голос" android:textColor="@android:color/white" android:textSize="18sp" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Обучение и контрольная проверка" android:textColor="@color/ai_text_secondary" android:textSize="13sp" />
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="›" android:textColor="@color/neon_blue" android:textSize="34sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
