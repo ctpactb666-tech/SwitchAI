@@ -56,5 +56,5 @@ dependencies {
     implementation(libs.aboutlibraries.view)
     implementation(libs.markdown.core)
     implementation(libs.markdown.linkify)
-    implementation(libs.sherpa.onnx)
+    implementation(files("libs/sherpa-onnx-1.13.8.aar"))
 }
