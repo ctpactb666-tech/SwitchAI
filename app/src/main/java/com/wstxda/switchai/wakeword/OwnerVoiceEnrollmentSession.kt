@@ -19,11 +19,6 @@ class OwnerVoiceEnrollmentSession(context: Context) {
         if (embedding.isEmpty()) return AddResult.Invalid
 
         val normalized = OwnerVoiceProfileStore.normalize(embedding)
-        val duplicate = samples.any {
-            OwnerVoiceProfileStore.cosineSimilarity(it, normalized) >= DUPLICATE_THRESHOLD
-        }
-        if (duplicate) return AddResult.TooSimilar
-
         samples += normalized
         return if (isComplete) AddResult.Complete else AddResult.Accepted(
             completedSamples,
@@ -44,7 +39,4 @@ class OwnerVoiceEnrollmentSession(context: Context) {
         data object Invalid : AddResult
     }
 
-    companion object {
-        private const val DUPLICATE_THRESHOLD = 0.995f
-    }
 }
