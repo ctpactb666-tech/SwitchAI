@@ -1,11 +1,16 @@
 package com.wstxda.switchai.wakeword
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
 import java.util.concurrent.atomic.AtomicBoolean
+import androidx.core.content.ContextCompat
 
 class MicrophoneAudioSource(
+    private val context: Context,
     private val sampleRate: Int = DEFAULT_SAMPLE_RATE,
     private val frameSize: Int = DEFAULT_FRAME_SIZE,
     private val onFrame: (AudioFrame) -> Unit,
@@ -16,6 +21,13 @@ class MicrophoneAudioSource(
 
     fun start(): Boolean {
         if (running.get()) return true
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.RECORD_AUDIO,
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
 
         val minBuffer = AudioRecord.getMinBufferSize(
             sampleRate,
@@ -25,13 +37,17 @@ class MicrophoneAudioSource(
         if (minBuffer <= 0) return false
 
         val bufferSize = maxOf(minBuffer, frameSize * 2 * 4)
-        val recorder = AudioRecord(
+        val recorder = try {
+            AudioRecord(
             MediaRecorder.AudioSource.VOICE_RECOGNITION,
             sampleRate,
             AudioFormat.CHANNEL_IN_MONO,
             AudioFormat.ENCODING_PCM_16BIT,
             bufferSize,
-        )
+            )
+        } catch (_: SecurityException) {
+            return false
+        }
         if (recorder.state != AudioRecord.STATE_INITIALIZED) {
             recorder.release()
             return false
