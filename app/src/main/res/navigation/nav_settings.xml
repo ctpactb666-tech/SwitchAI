@@ -41,6 +41,18 @@
         tools:layout="@layout/fragment_add_phrase" />
 
     <fragment
+        android:id="@+id/listeningFragment"
+        android:name="com.wstxda.switchai.fragment.ListeningFragment"
+        android:label="Слушаю"
+        tools:layout="@layout/fragment_listening" />
+
+    <fragment
+        android:id="@+id/assistantSettingsFragment"
+        android:name="com.wstxda.switchai.fragment.AssistantSettingsFragment"
+        android:label="Настройки ассистента"
+        tools:layout="@layout/fragment_assistant_settings" />
+
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.wstxda.switchai.fragment.preferences.MainPreferencesFragment"
         android:label="@string/app_settings"
