@@ -1,8 +1,10 @@
 package com.wstxda.switchai.activity
 
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.FragmentContainerView
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,9 +25,31 @@ class MainActivity : BaseActivity() {
         val navHost = supportFragmentManager
             .findFragmentById(R.id.nav_host_container) as NavHostFragment
         val navController = navHost.navController
+
+        applySystemInsets()
         setupBottomNavigation(binding.bottomNavigation, navController)
 
         UpdaterService.checkForUpdatesAuto(lifecycleScope, this, supportFragmentManager)
+    }
+
+    private fun applySystemInsets() {
+        val baseBottomMargin = resources.getDimensionPixelSize(R.dimen.bottom_nav_margin)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.navHostContainer.setPadding(
+                bars.left,
+                bars.top,
+                bars.right,
+                0,
+            )
+            binding.bottomNavContainer.layoutParams =
+                (binding.bottomNavContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    leftMargin = resources.getDimensionPixelSize(R.dimen.bottom_nav_side_margin)
+                    rightMargin = resources.getDimensionPixelSize(R.dimen.bottom_nav_side_margin)
+                    bottomMargin = baseBottomMargin + bars.bottom
+                }
+            insets
+        }
     }
 
     private fun setupBottomNavigation(
