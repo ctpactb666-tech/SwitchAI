@@ -1,11 +1,27 @@
-<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_host_container"
-    android:name="androidx.navigation.fragment.NavHostFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    app:defaultNavHost="true"
-    app:navGraph="@navigation/nav_settings"
-    tools:layout="@layout/fragment_preferences" />
+    android:background="@color/md_theme_background">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="76dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_settings" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_gravity="bottom"
+        android:background="@color/ai_card"
+        app:itemActiveIndicatorStyle="@style/SwitchAI.BottomNavIndicator"
+        app:itemIconTint="@color/bottom_nav_item"
+        app:itemTextColor="@color/bottom_nav_item"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/main_bottom_nav" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
