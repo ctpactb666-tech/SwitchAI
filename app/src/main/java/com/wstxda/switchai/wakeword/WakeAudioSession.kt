@@ -10,7 +10,7 @@ class WakeAudioSession(
         maxSamples = MicrophoneAudioSource.DEFAULT_SAMPLE_RATE * RECENT_AUDIO_SECONDS
     )
 
-    private val microphone = MicrophoneAudioSource { frame ->
+    private val microphone = MicrophoneAudioSource(context) { frame ->
         recentAudio.append(frame.samples)
     }
 
