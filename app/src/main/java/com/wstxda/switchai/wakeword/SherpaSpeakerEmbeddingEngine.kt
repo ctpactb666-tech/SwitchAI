@@ -9,10 +9,7 @@ class SherpaSpeakerEmbeddingEngine(
     context: Context,
 ) : SpeakerEmbeddingEngine {
 
-    private val modelFile = File(
-        context.filesDir,
-        "models/$MODEL_FILE_NAME",
-    )
+    private val modelFile = SpeakerModelInstaller.ensureInstalled(context)
 
     private val extractor: SpeakerEmbeddingExtractor? by lazy {
         if (!modelFile.isFile) {
@@ -53,6 +50,6 @@ class SherpaSpeakerEmbeddingEngine(
     }
 
     companion object {
-        const val MODEL_FILE_NAME = "3dspeaker_campplus_sv_en_voxceleb_16k.onnx"
+        const val MODEL_FILE_NAME = "3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx"
     }
 }
