@@ -5,7 +5,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.wstxda.switchai.databinding.ActivityMainBinding
 import com.wstxda.switchai.service.UpdaterService
-import com.wstxda.switchai.ui.component.FreeAndroidWarnDialog
 
 class MainActivity : BaseActivity() {
 
@@ -16,7 +15,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        FreeAndroidWarnDialog.show(supportFragmentManager, this)
         UpdaterService.checkForUpdatesAuto(lifecycleScope, this, supportFragmentManager)
     }
 }
