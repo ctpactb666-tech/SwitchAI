@@ -8,7 +8,7 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.os.Build
 import android.os.Handler
-import androidx.annotation.RequiresApi
+import android.annotation.SuppressLint
 import android.os.Looper
 
 class OnDevicePhraseRecognizer(
@@ -21,6 +21,7 @@ class OnDevicePhraseRecognizer(
     private var recognizer: SpeechRecognizer? = null
     private var running = false
 
+    @SuppressLint("NewApi")
     fun start() {
         if (running) return
         running = true
@@ -52,7 +53,6 @@ class OnDevicePhraseRecognizer(
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
     private fun createOnDeviceRecognizer(): SpeechRecognizer =
         SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
 
