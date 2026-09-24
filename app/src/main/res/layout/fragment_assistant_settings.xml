@@ -1,0 +1,107 @@
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home_cosmic">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <TextView
+            android:id="@+id/assistantTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ассистент"
+            android:textColor="@android:color/white"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/assistantSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Настройки запуска"
+            android:textColor="@color/ai_text_secondary"
+            android:textSize="14sp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="#E80B1324"
+            app:cardCornerRadius="22dp"
+            app:strokeColor="#505A78FF"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/assistantVoiceMode"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:checked="true"
+                    android:text="Запускать голосовой режим"
+                    android:textColor="@android:color/white" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/assistantVoiceInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:checked="true"
+                    android:text="Использовать голосовой ввод"
+                    android:textColor="@android:color/white" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/assistantAutoConversation"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Автоматически начинать разговор"
+                    android:textColor="@android:color/white" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/assistantPriority"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Показывать приоритетно"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkAssistant"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="14dp"
+            android:text="Проверить доступность"
+            android:textAllCaps="false"
+            app:cornerRadius="18dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openAssistant"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="10dp"
+            android:text="Открыть приложение"
+            android:textAllCaps="false"
+            app:cornerRadius="18dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/removeAssistant"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="18dp"
+            android:text="Удалить из списка"
+            android:textAllCaps="false"
+            android:textColor="#FF7082" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
