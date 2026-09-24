@@ -8,6 +8,7 @@ import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.os.Build
 import android.os.Handler
+import androidx.annotation.RequiresApi
 import android.os.Looper
 
 class OnDevicePhraseRecognizer(
@@ -34,7 +35,7 @@ class OnDevicePhraseRecognizer(
                 return@post
             }
 
-            recognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(context).also {
+            recognizer = createOnDeviceRecognizer().also {
                 it.setRecognitionListener(this)
             }
 
@@ -50,6 +51,10 @@ class OnDevicePhraseRecognizer(
             recognizer = null
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun createOnDeviceRecognizer(): SpeechRecognizer =
+        SpeechRecognizer.createOnDeviceSpeechRecognizer(context)
 
     private fun startListening() {
         if (!running) return
