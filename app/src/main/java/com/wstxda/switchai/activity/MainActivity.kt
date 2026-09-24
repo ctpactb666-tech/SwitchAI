@@ -36,11 +36,16 @@ class MainActivity : BaseActivity() {
         val baseBottomMargin = resources.getDimensionPixelSize(R.dimen.bottom_nav_margin)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val navReservedSpace =
+                resources.getDimensionPixelSize(R.dimen.bottom_nav_height) +
+                    resources.getDimensionPixelSize(R.dimen.bottom_nav_margin) +
+                    bars.bottom
+
             binding.navHostContainer.setPadding(
                 bars.left,
                 bars.top,
                 bars.right,
-                0,
+                navReservedSpace,
             )
             binding.bottomNavContainer.layoutParams =
                 (binding.bottomNavContainer.layoutParams as ViewGroup.MarginLayoutParams).apply {
