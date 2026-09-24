@@ -1,5 +1,12 @@
 <resources>
     <style name="SwitchAI.BottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/ai_card_high</item>
+        <item name="android:color">#303B2B88</item>
+    </style>
+    <style name="SwitchAI.BottomNavText.Active" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="SwitchAI.BottomNavText.Inactive" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">11sp</item>
     </style>
 </resources>
