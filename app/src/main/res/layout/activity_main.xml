@@ -10,7 +10,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="0dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_settings" />
 
@@ -30,8 +30,8 @@
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_bottom_nav_neon"
-            app:itemActiveIndicatorStyle="@style/SwitchAI.BottomNavIndicator"
+            android:background="@android:color/transparent"
+            app:itemActiveIndicatorEnabled="false"
             app:itemIconSize="26dp"
             app:itemIconTint="@color/bottom_nav_item"
             app:itemTextAppearanceActive="@style/SwitchAI.BottomNavText.Active"
