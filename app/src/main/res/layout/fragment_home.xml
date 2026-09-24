@@ -59,6 +59,26 @@
             android:layout_height="268dp"
             android:layout_marginTop="12dp">
 
+            <ImageView
+                android:id="@+id/openPhrasesQuick"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center_vertical|start"
+                android:background="@drawable/bg_side_action_neon"
+                android:padding="15dp"
+                android:src="@drawable/ic_select"
+                app:tint="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/openAssistantsQuick"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center_vertical|end"
+                android:background="@drawable/bg_side_action_neon"
+                android:padding="15dp"
+                android:src="@drawable/ic_assistant"
+                app:tint="@android:color/white" />
+
             <View
                 android:layout_width="244dp"
                 android:layout_height="244dp"
@@ -73,6 +93,7 @@
                 android:src="@drawable/ic_voice_wave_neon" />
 
             <ImageView
+                android:id="@+id/startListening"
                 android:layout_width="76dp"
                 android:layout_height="76dp"
                 android:layout_gravity="center"
