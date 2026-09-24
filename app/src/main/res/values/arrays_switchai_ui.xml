@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="wake_phrase_assistant_names">
+        <item>ChatGPT</item>
+        <item>Gemini</item>
+        <item>Claude</item>
+        <item>Алиса</item>
+    </string-array>
+    <string-array name="wake_phrase_language_names">
+        <item>Автоопределение</item>
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+</resources>
