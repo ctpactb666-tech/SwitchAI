@@ -30,13 +30,12 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     private fun enableEdgeToEdgeNoContrast() {
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.dark(Color.TRANSPARENT),
+        )
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            enableEdgeToEdge(
-                navigationBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT)
-            )
             window.isNavigationBarContrastEnforced = false
-        } else {
-            enableEdgeToEdge()
         }
     }
 
