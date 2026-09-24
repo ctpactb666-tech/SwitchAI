@@ -34,7 +34,7 @@
 
     <!--app theme base-->
 
-    <style name="AppTheme.Base" parent="@style/Theme.Material3.Light.NoActionBar">
+    <style name="AppTheme.Base" parent="@style/Theme.Material3.Dark.NoActionBar">
         <!--preference theme-->
         <item name="android:colorAccent">?attr/colorPrimary</item>
         <!--components theme-->
@@ -48,7 +48,7 @@
         <!--app bars colors-->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/black</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!--material colors-->
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
