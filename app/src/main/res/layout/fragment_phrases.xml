@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:text="Фразы активации"
             android:textColor="@android:color/white"
-            android:textSize="27sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addPhrase"
