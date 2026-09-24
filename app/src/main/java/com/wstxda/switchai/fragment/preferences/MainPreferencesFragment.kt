@@ -79,7 +79,7 @@ class MainPreferencesFragment : BasePreferenceFragment() {
         }
     }
 
-    override fun getToolbarTitle(): String = getString(R.string.app_settings)
+    override fun getToolbarTitle(): String = getString(R.string.app_name)
 
     override fun showNavigationIcon(): Boolean = false
 
