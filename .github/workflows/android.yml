@@ -72,3 +72,22 @@ jobs:
           path: app/build/outputs/apk/debug/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Create source ZIP
+        run: |
+          zip -qr SwitchAI-current-source.zip . \
+            -x ".git/*" \
+            -x "SwitchAI-current-source.zip" \
+            -x "app/build/*" \
+            -x "build/*" \
+            -x ".gradle/*" \
+            -x "app/libs/sherpa-onnx-1.13.8.aar" \
+            -x "app/src/main/assets/models/3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx"
+
+      - name: Upload source ZIP
+        uses: actions/upload-artifact@v7
+        with:
+          name: SwitchAI-current-source
+          path: SwitchAI-current-source.zip
+          if-no-files-found: error
+          retention-days: 14
