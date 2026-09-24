@@ -3,11 +3,12 @@ package com.wstxda.switchai.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButtonToggleGroup
 import com.wstxda.switchai.R
 import com.wstxda.switchai.wakeword.WakeAssistantLauncher
@@ -52,21 +53,35 @@ class AssistantsFragment : Fragment(R.layout.fragment_assistants) {
     private fun render(container: LinearLayout, items: List<AssistantUi>) {
         container.removeAllViews()
         val inflater = LayoutInflater.from(requireContext())
+
         items.forEach { item ->
             val row = inflater.inflate(R.layout.item_assistant_neon, container, false)
             row.findViewById<ImageView>(R.id.assistantIcon).setImageResource(item.iconRes)
             row.findViewById<TextView>(R.id.assistantName).text = item.name
             row.findViewById<TextView>(R.id.assistantVendor).text = item.vendor
+
             val installed = isInstalled(item.packageName)
             row.findViewById<TextView>(R.id.assistantStatus).text =
                 if (installed) "● Установлен" else "Не установлен"
-            row.setOnClickListener {
+
+            row.findViewById<View>(R.id.assistantQuickLaunch).setOnClickListener {
                 if (installed) {
                     WakeAssistantLauncher.launch(
                         requireContext(),
                         WakePhrase(item.name, item.key),
                     )
                 }
+            }
+
+            row.setOnClickListener {
+                findNavController().navigate(
+                    R.id.assistantSettingsFragment,
+                    bundleOf(
+                        AssistantSettingsFragment.ARG_KEY to item.key,
+                        AssistantSettingsFragment.ARG_NAME to item.name,
+                        AssistantSettingsFragment.ARG_PACKAGE to item.packageName,
+                    ),
+                )
             }
             container.addView(row)
         }
