@@ -31,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            app:itemActiveIndicatorEnabled="false"
             app:itemIconSize="26dp"
             app:itemIconTint="@color/bottom_nav_item"
             app:itemTextAppearanceActive="@style/SwitchAI.BottomNavText.Active"
