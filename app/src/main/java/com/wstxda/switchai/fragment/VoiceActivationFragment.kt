@@ -3,6 +3,9 @@ package com.wstxda.switchai.fragment
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,6 +20,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import com.wstxda.switchai.R
+import com.wstxda.switchai.overlay.NeonOverlayService
 import com.wstxda.switchai.ui.NeonViews
 import com.wstxda.switchai.wakeword.WakeWordSettings
 import com.wstxda.switchai.wakeword.WakeWordState
@@ -24,6 +28,8 @@ import com.wstxda.switchai.wakeword.WakeWordState
 class VoiceActivationFragment : Fragment(R.layout.fragment_voice_activation) {
 
     private lateinit var activationSwitch: MaterialSwitch
+    private lateinit var overlaySwitch: MaterialSwitch
+    private var pendingOverlayEnable = false
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -34,6 +40,20 @@ class VoiceActivationFragment : Fragment(R.layout.fragment_voice_activation) {
             setSwitchSilently(false)
             Toast.makeText(requireContext(), R.string.neon_mic_permission_needed, Toast.LENGTH_LONG).show()
         }
+    }
+
+    private val overlayPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        val allowed = Settings.canDrawOverlays(requireContext())
+        setOverlaySwitchSilently(allowed && pendingOverlayEnable)
+        WakeWordSettings.putBoolean(requireContext(), WakeWordSettings.KEY_OVERLAY, allowed && pendingOverlayEnable)
+        if (allowed && pendingOverlayEnable) {
+            NeonOverlayService.start(requireContext())
+        } else if (pendingOverlayEnable) {
+            Toast.makeText(requireContext(), R.string.neon_overlay_permission, Toast.LENGTH_LONG).show()
+        }
+        pendingOverlayEnable = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,6 +78,13 @@ class VoiceActivationFragment : Fragment(R.layout.fragment_voice_activation) {
         // behaviour
         bindPref(view, R.id.rowLocked, R.drawable.ic_smartphone, R.string.neon_locked_screen, WakeWordSettings.KEY_LOCKED_SCREEN)
         bindPref(view, R.id.rowBluetooth, R.drawable.ic_headset, R.string.neon_bluetooth, WakeWordSettings.KEY_BLUETOOTH)
+        overlaySwitch = NeonViews.bindSwitchRow(
+            view.findViewById(R.id.rowOverlay),
+            R.drawable.ic_assistant,
+            getString(R.string.neon_overlay_enable),
+            WakeWordSettings.getBoolean(context, WakeWordSettings.KEY_OVERLAY, false) && Settings.canDrawOverlays(context),
+        ) { onOverlayChanged(it) }
+        if (overlaySwitch.isChecked) NeonOverlayService.start(context)
         bindPref(view, R.id.rowSound, R.drawable.ic_volume, R.string.neon_sound, WakeWordSettings.KEY_SOUND)
         bindPref(view, R.id.rowVibration, R.drawable.ic_vibration, R.string.neon_vibration, WakeWordSettings.KEY_VIBRATION)
 
@@ -75,6 +102,35 @@ class VoiceActivationFragment : Fragment(R.layout.fragment_voice_activation) {
             view.findViewById(rowId), icon, getString(title),
             WakeWordSettings.getBoolean(requireContext(), key),
         ) { WakeWordSettings.putBoolean(requireContext(), key, it) }
+    }
+
+    private fun onOverlayChanged(enabled: Boolean) {
+        val context = requireContext()
+        if (!enabled) {
+            pendingOverlayEnable = false
+            WakeWordSettings.putBoolean(context, WakeWordSettings.KEY_OVERLAY, false)
+            NeonOverlayService.stop(context)
+            return
+        }
+        if (Settings.canDrawOverlays(context)) {
+            WakeWordSettings.putBoolean(context, WakeWordSettings.KEY_OVERLAY, true)
+            NeonOverlayService.start(context)
+            return
+        }
+        pendingOverlayEnable = true
+        setOverlaySwitchSilently(false)
+        overlayPermissionLauncher.launch(
+            Intent(
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:${context.packageName}"),
+            )
+        )
+    }
+
+    private fun setOverlaySwitchSilently(checked: Boolean) {
+        overlaySwitch.setOnCheckedChangeListener(null)
+        overlaySwitch.isChecked = checked
+        overlaySwitch.setOnCheckedChangeListener { _, enabled -> onOverlayChanged(enabled) }
     }
 
     private fun onActivationChanged(checked: Boolean) {

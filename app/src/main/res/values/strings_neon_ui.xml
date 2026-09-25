@@ -55,6 +55,12 @@
     <string name="neon_sound">Звуковое подтверждение</string>
     <string name="neon_vibration">Вибрация при срабатывании</string>
     <string name="neon_mic_permission_needed">Для голосовой активации нужен доступ к микрофону</string>
+    <string name="neon_overlay_enable">Плавающий мини-виджет</string>
+    <string name="neon_overlay_permission">Разрешите SwitchAI показывать мини-виджет поверх других приложений</string>
+    <string name="neon_overlay_ready">SwitchAI • готов</string>
+    <string name="neon_overlay_open">Открыть SwitchAI</string>
+    <string name="neon_overlay_channel">Мини-виджет SwitchAI</string>
+    <string name="neon_overlay_notification">Неоновый мини-виджет активен</string>
     <string name="neon_unavailable_message">Телефон не поддерживает распознавание речи на устройстве (нужен Android 12+ и офлайн-пакет языка в настройках Google). Фоновое прослушивание работать не будет, но кнопка микрофона на главной работает.</string>
 
     <!--phrases-->
