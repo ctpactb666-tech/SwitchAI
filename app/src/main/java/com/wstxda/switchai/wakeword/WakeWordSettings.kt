@@ -19,7 +19,6 @@ object WakeWordSettings {
     const val KEY_VIBRATION = "wake_vibration_feedback"
     const val KEY_SENSITIVITY = "wake_sensitivity"
     const val KEY_OWNER_ONLY = "owner_voice_only"
-    const val KEY_OVERLAY = "wake_neon_overlay"
 
     private fun prefs(context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
 

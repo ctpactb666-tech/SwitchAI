@@ -194,10 +194,6 @@
                     layout="@layout/item_neon_switch_row" />
 
                 <include
-                    android:id="@+id/rowOverlay"
-                    layout="@layout/item_neon_switch_row" />
-
-                <include
                     android:id="@+id/rowSound"
                     layout="@layout/item_neon_switch_row" />
 
