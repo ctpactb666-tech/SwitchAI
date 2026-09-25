@@ -16,6 +16,7 @@ class OnDevicePhraseRecognizer(
     private val context: Context,
     private val onText: (String) -> Unit,
     private val onUnavailable: () -> Unit = {},
+    private val languageProvider: () -> String? = { null },
 ) : RecognitionListener {
 
     private val mainHandler = Handler(Looper.getMainLooper())
@@ -68,6 +69,7 @@ class OnDevicePhraseRecognizer(
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5)
             putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+            languageProvider()?.let { putExtra(RecognizerIntent.EXTRA_LANGUAGE, it) }
         }
 
         runCatching { recognizer?.startListening(intent) }

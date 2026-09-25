@@ -2,7 +2,7 @@ package com.wstxda.switchai.wakeword
 
 import android.content.Context
 
-class OwnerVoiceVerifier(context: Context) {
+class OwnerVoiceVerifier(private val context: Context) {
 
     private val profileStore = OwnerVoiceProfileStore(context)
 
@@ -13,7 +13,7 @@ class OwnerVoiceVerifier(context: Context) {
         val candidate = candidateEmbedding ?: return Verification.NoCandidate
 
         val score = OwnerVoiceProfileStore.cosineSimilarity(profile, candidate)
-        return if (score >= DEFAULT_THRESHOLD) {
+        return if (score >= WakeWordSettings.ownerThreshold(context)) {
             Verification.Verified(score)
         } else {
             Verification.Rejected(score)
@@ -28,8 +28,7 @@ class OwnerVoiceVerifier(context: Context) {
     }
 
     companion object {
-        // Initial threshold. It will be exposed as an advanced setting after
-        // device testing with the selected speaker-embedding model.
-        const val DEFAULT_THRESHOLD = 0.72f
+        // Fallback value; the real threshold comes from the "Чувствительность" slider.
+        const val DEFAULT_THRESHOLD = 0.75f
     }
 }

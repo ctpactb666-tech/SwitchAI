@@ -1,4 +1,20 @@
-<resources>\n    <color name="neon_blue">#4CC9FF</color>\n    <color name="neon_violet">#8B7CFF</color>\n    <color name="ai_card">#111522</color>\n    <color name="ai_card_high">#171B2A</color>\n    <color name="ai_text_secondary">#AEB7D1</color>
+<resources>
+    <!--SwitchAI neon UI palette-->
+    <color name="neon_blue">#4CC9FF</color>
+    <color name="neon_violet">#8B7CFF</color>
+    <color name="neon_violet_strong">#6D4DFF</color>
+    <color name="neon_teal">#22D3B6</color>
+    <color name="neon_green">#2EE6A8</color>
+    <color name="neon_danger">#FF5C6C</color>
+    <color name="neon_danger_bg">#2A121C</color>
+    <color name="neon_card">#D90E1428</color>
+    <color name="neon_card_stroke">#2B3659</color>
+    <color name="neon_track_off">#2A3148</color>
+    <color name="neon_text_primary">#FFFFFF</color>
+    <color name="neon_text_muted">#8E98B8</color>
+    <color name="ai_card">#111522</color>
+    <color name="ai_card_high">#171B2A</color>
+    <color name="ai_text_secondary">#AEB7D1</color>
 
     <!--app icon-->
 

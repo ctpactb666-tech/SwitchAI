@@ -1,12 +1,61 @@
 <resources>
     <style name="SwitchAI.BottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">#303B2B88</item>
+        <item name="android:color">#308B7CFF</item>
     </style>
     <style name="SwitchAI.BottomNavText.Active" parent="TextAppearance.Material3.LabelMedium">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
     </style>
     <style name="SwitchAI.BottomNavText.Inactive" parent="TextAppearance.Material3.LabelMedium">
         <item name="android:textSize">11sp</item>
+    </style>
+
+    <!--neon switch: teal track, white thumb (as in the mockup)-->
+    <style name="SwitchAI.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/neon_switch_track</item>
+        <item name="thumbTint">@color/neon_switch_thumb</item>
+        <item name="trackDecorationTint">@color/neon_switch_outline</item>
+        <item name="thumbIconTint">@android:color/transparent</item>
+    </style>
+
+    <!--main activation switch is blue-violet in the mockup-->
+    <style name="SwitchAI.Switch.Blue">
+        <item name="trackTint">@color/neon_switch_track_blue</item>
+    </style>
+
+    <style name="SwitchAI.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/neon_chip_bg</item>
+        <item name="chipStrokeColor">@color/neon_chip_stroke</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/neon_chip_text</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="chipIconVisible">false</item>
+        <item name="chipCornerRadius">18dp</item>
+        <item name="chipMinHeight">38dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="SwitchAI.Title" parent="">
+        <item name="android:textColor">@color/neon_text_primary</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SwitchAI.Subtitle" parent="">
+        <item name="android:textColor">@color/ai_text_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="SwitchAI.SectionLabel" parent="">
+        <item name="android:textColor">@color/neon_text_primary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SwitchAI.Card" parent="">
+        <item name="android:background">@drawable/bg_neon_card</item>
     </style>
 </resources>

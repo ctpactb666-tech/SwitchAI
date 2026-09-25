@@ -1,107 +1,177 @@
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home_cosmic">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/view_neon_top_bar" />
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="18dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/assistantTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ассистент"
-            android:textColor="@android:color/white"
-            android:textSize="27sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp">
 
-        <TextView
-            android:id="@+id/assistantSubtitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="Настройки запуска"
-            android:textColor="@color/ai_text_secondary"
-            android:textSize="14sp" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="#E80B1324"
-            app:cardCornerRadius="22dp"
-            app:strokeColor="#505A78FF"
-            app:strokeWidth="1dp">
-
+            <!--assistant header-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:background="@drawable/bg_neon_card_glow"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
 
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/assistantVoiceMode"
-                    android:layout_width="match_parent"
+                <FrameLayout
+                    android:id="@+id/assistantTile"
+                    android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:checked="true"
-                    android:text="Запускать голосовой режим"
-                    android:textColor="@android:color/white" />
+                    tools:background="@drawable/bg_icon_chatgpt">
 
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/assistantVoiceInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:checked="true"
-                    android:text="Использовать голосовой ввод"
-                    android:textColor="@android:color/white" />
+                    <ImageView
+                        android:id="@+id/assistantIcon"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:importantForAccessibility="no"
+                        app:tint="@android:color/white"
+                        tools:src="@drawable/ic_assistant_chatgpt" />
+                </FrameLayout>
 
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/assistantAutoConversation"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="Автоматически начинать разговор"
-                    android:textColor="@android:color/white" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/assistantPriority"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:text="Показывать приоритетно"
-                    android:textColor="@android:color/white" />
+                    <TextView
+                        android:id="@+id/assistantName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/neon_text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        tools:text="ChatGPT" />
+
+                    <TextView
+                        android:id="@+id/assistantVendor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/ai_text_secondary"
+                        android:textSize="12sp"
+                        tools:text="OpenAI" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/assistantStatusIcon"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="@color/neon_teal" />
+
+                        <TextView
+                            android:id="@+id/assistantStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:textColor="@color/neon_teal"
+                            android:textSize="11sp"
+                            tools:text="Установлен" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/assistantLaunch"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_neon_round_button_dim"
+                    android:padding="13dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_mic"
+                    app:tint="@android:color/white"
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/checkAssistant"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="14dp"
-            android:text="Проверить доступность"
-            android:textAllCaps="false"
-            app:cornerRadius="18dp" />
+            <!--switches-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_neon_card"
+                android:orientation="vertical"
+                android:paddingVertical="4dp">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/openAssistant"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginTop="10dp"
-            android:text="Открыть приложение"
-            android:textAllCaps="false"
-            app:cornerRadius="18dp" />
+                <include
+                    android:id="@+id/rowVoiceMode"
+                    layout="@layout/item_neon_switch_row" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/removeAssistant"
-            style="@style/Widget.Material3.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="18dp"
-            android:text="Удалить из списка"
-            android:textAllCaps="false"
-            android:textColor="#FF7082" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+                <include
+                    android:id="@+id/rowVoiceInput"
+                    layout="@layout/item_neon_switch_row" />
+
+                <include
+                    android:id="@+id/rowAutoConversation"
+                    layout="@layout/item_neon_switch_row" />
+
+                <include
+                    android:id="@+id/rowPriority"
+                    layout="@layout/item_neon_switch_row" />
+            </LinearLayout>
+
+            <include
+                android:id="@+id/rowCheck"
+                layout="@layout/item_neon_nav_row" />
+
+            <include
+                android:id="@+id/rowOpen"
+                layout="@layout/item_neon_nav_row" />
+
+            <include
+                android:id="@+id/rowMore"
+                layout="@layout/item_neon_nav_row" />
+
+            <LinearLayout
+                android:id="@+id/rowRemove"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_neon_danger"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_delete"
+                    app:tint="@color/neon_danger" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/neon_remove_from_list"
+                    android:textColor="@color/neon_danger"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

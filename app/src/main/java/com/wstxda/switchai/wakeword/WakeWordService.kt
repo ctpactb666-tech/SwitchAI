@@ -2,6 +2,7 @@ package com.wstxda.switchai.wakeword
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.content.pm.ServiceInfo
@@ -10,11 +11,13 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
 import com.wstxda.switchai.R
+import com.wstxda.switchai.activity.MainActivity
 
 class WakeWordService : Service() {
 
     private val ownerSecurity by lazy { OwnerVoiceSecurity(this) }
     private val coordinator by lazy { WakeWordCoordinator(this) }
+    private val phraseStore by lazy { WakePhraseStore(this) }
     private var phraseRecognizer: OnDevicePhraseRecognizer? = null
 
     override fun onCreate() {
@@ -26,20 +29,30 @@ class WakeWordService : Service() {
             context = this,
             onText = { recognized ->
                 when (coordinator.onRecognizedText(recognized)) {
-                    WakeWordCoordinator.Result.Locked -> stopSelf()
+                    WakeWordCoordinator.Result.Locked -> {
+                        WakeWordState.set(WakeWordState.Status.LOCKED)
+                        stopSelf()
+                    }
+
                     else -> Unit
                 }
             },
-            onUnavailable = { stopSelf() },
+            onUnavailable = {
+                WakeWordState.set(WakeWordState.Status.UNAVAILABLE)
+                stopSelf()
+            },
+            languageProvider = { preferredLanguage() },
         )
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (ownerSecurity.isLocked) {
+            WakeWordState.set(WakeWordState.Status.LOCKED)
             stopSelf()
             return START_NOT_STICKY
         }
 
+        WakeWordState.set(WakeWordState.Status.LISTENING)
         phraseRecognizer?.start()
         return START_STICKY
     }
@@ -47,16 +60,36 @@ class WakeWordService : Service() {
     override fun onDestroy() {
         phraseRecognizer?.stop()
         phraseRecognizer = null
+        if (WakeWordState.current == WakeWordState.Status.LISTENING) {
+            WakeWordState.set(WakeWordState.Status.STOPPED)
+        }
         super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
+    /** Most common explicit language among enabled phrases; null = device default. */
+    private fun preferredLanguage(): String? =
+        phraseStore.load()
+            .filter { it.enabled && it.languageTag != "und" }
+            .groupingBy { it.languageTag }
+            .eachCount()
+            .maxByOrNull { it.value }
+            ?.key
+
     private fun startAsForeground() {
+        val openApp = PendingIntent.getActivity(
+            this,
+            0,
+            Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
+
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_voice_input)
+            .setSmallIcon(R.drawable.ic_mic)
             .setContentTitle(getString(R.string.wake_word_notification_title))
             .setContentText(getString(R.string.wake_word_notification_text))
+            .setContentIntent(openApp)
             .setOngoing(true)
             .setSilent(true)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
@@ -72,7 +105,6 @@ class WakeWordService : Service() {
     }
 
     private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val channel = NotificationChannel(
             CHANNEL_ID,
             getString(R.string.wake_word_notification_channel),

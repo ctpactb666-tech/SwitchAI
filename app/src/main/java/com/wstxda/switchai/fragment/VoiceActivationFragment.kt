@@ -1,111 +1,149 @@
 package com.wstxda.switchai.fragment
 
 import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.slider.Slider
 import com.wstxda.switchai.R
-import com.wstxda.switchai.wakeword.WakeWordService
+import com.wstxda.switchai.ui.NeonViews
+import com.wstxda.switchai.wakeword.WakeWordSettings
+import com.wstxda.switchai.wakeword.WakeWordState
 
 class VoiceActivationFragment : Fragment(R.layout.fragment_voice_activation) {
 
-    private val prefs by lazy { PreferenceManager.getDefaultSharedPreferences(requireContext()) }
-    private var pendingEnable = false
+    private lateinit var activationSwitch: MaterialSwitch
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) {
-        if (hasMicPermission() && pendingEnable) {
-            setEnabled(true)
-        } else if (view != null) {
-            requireView().findViewById<MaterialSwitch>(R.id.activationSwitch).isChecked = false
+        if (WakeWordSettings.hasMicPermission(requireContext())) {
+            setActivation(true)
+        } else {
+            setSwitchSilently(false)
+            Toast.makeText(requireContext(), R.string.neon_mic_permission_needed, Toast.LENGTH_LONG).show()
         }
-        pendingEnable = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val activation = view.findViewById<MaterialSwitch>(R.id.activationSwitch)
-        val locked = view.findViewById<MaterialSwitch>(R.id.lockedScreenSwitch)
-        val bluetooth = view.findViewById<MaterialSwitch>(R.id.bluetoothSwitch)
-        val sound = view.findViewById<MaterialSwitch>(R.id.soundSwitch)
-        val vibration = view.findViewById<MaterialSwitch>(R.id.vibrationSwitch)
+        val context = requireContext()
+        NeonViews.setupTopBar(this, view.findViewById(R.id.topBar), getString(R.string.neon_activation_title))
+
+        // main switch
+        activationSwitch = view.findViewById(R.id.activationSwitch)
+        activationSwitch.isChecked = WakeWordSettings.isEnabled(context)
+        activationSwitch.setOnCheckedChangeListener { _, checked -> onActivationChanged(checked) }
+        view.findViewById<View>(R.id.activationCard).setOnClickListener { activationSwitch.toggle() }
+
+        // sensitivity
         val slider = view.findViewById<Slider>(R.id.sensitivitySlider)
-
-        activation.isChecked = prefs.getBoolean("wake_word_enabled", false)
-        locked.isChecked = prefs.getBoolean("wake_locked_screen", true)
-        bluetooth.isChecked = prefs.getBoolean("wake_bluetooth", true)
-        sound.isChecked = prefs.getBoolean("wake_sound_feedback", true)
-        vibration.isChecked = prefs.getBoolean("wake_vibration_feedback", true)
-        slider.value = prefs.getFloat("owner_voice_threshold", 0.72f).coerceIn(0.5f, 0.95f)
-        updateStatus(view, activation.isChecked)
+        slider.value = snap(WakeWordSettings.sensitivity(context))
         updateSensitivityLabel(view, slider.value)
-
-        activation.setOnCheckedChangeListener { button, checked ->
-            if (checked && !hasMicPermission()) {
-                button.isChecked = false
-                pendingEnable = true
-                requestPermissions()
-            } else {
-                setEnabled(checked)
-                updateStatus(view, checked)
-            }
-        }
-
-        locked.setOnCheckedChangeListener { _, v -> prefs.edit().putBoolean("wake_locked_screen", v).apply() }
-        bluetooth.setOnCheckedChangeListener { _, v -> prefs.edit().putBoolean("wake_bluetooth", v).apply() }
-        sound.setOnCheckedChangeListener { _, v -> prefs.edit().putBoolean("wake_sound_feedback", v).apply() }
-        vibration.setOnCheckedChangeListener { _, v -> prefs.edit().putBoolean("wake_vibration_feedback", v).apply() }
-        slider.addOnChangeListener { _, value, _ ->
-            prefs.edit().putFloat("owner_voice_threshold", value).apply()
+        slider.addOnChangeListener { _, value, fromUser ->
+            if (fromUser) WakeWordSettings.setSensitivity(requireContext(), value)
             updateSensitivityLabel(view, value)
         }
+
+        // behaviour
+        bindPref(view, R.id.rowLocked, R.drawable.ic_smartphone, R.string.neon_locked_screen, WakeWordSettings.KEY_LOCKED_SCREEN)
+        bindPref(view, R.id.rowBluetooth, R.drawable.ic_headset, R.string.neon_bluetooth, WakeWordSettings.KEY_BLUETOOTH)
+        bindPref(view, R.id.rowSound, R.drawable.ic_volume, R.string.neon_sound, WakeWordSettings.KEY_SOUND)
+        bindPref(view, R.id.rowVibration, R.drawable.ic_vibration, R.string.neon_vibration, WakeWordSettings.KEY_VIBRATION)
+
+        WakeWordState.status.observe(viewLifecycleOwner) { renderStatus(view, it) }
     }
 
-    private fun setEnabled(enabled: Boolean) {
-        prefs.edit().putBoolean("wake_word_enabled", enabled).apply()
-        val intent = Intent(requireContext(), WakeWordService::class.java)
-        if (enabled) {
-            ContextCompat.startForegroundService(requireContext(), intent)
+    private fun bindPref(
+        view: View,
+        @IdRes rowId: Int,
+        @DrawableRes icon: Int,
+        @StringRes title: Int,
+        key: String,
+    ) {
+        NeonViews.bindSwitchRow(
+            view.findViewById(rowId), icon, getString(title),
+            WakeWordSettings.getBoolean(requireContext(), key),
+        ) { WakeWordSettings.putBoolean(requireContext(), key, it) }
+    }
+
+    private fun onActivationChanged(checked: Boolean) {
+        if (checked && !WakeWordSettings.hasMicPermission(requireContext())) {
+            setSwitchSilently(false)
+            permissionLauncher.launch(
+                buildList {
+                    add(Manifest.permission.RECORD_AUDIO)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        add(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                }.toTypedArray()
+            )
         } else {
-            requireContext().stopService(intent)
+            setActivation(checked)
         }
-        view?.let { updateStatus(it, enabled) }
     }
 
-    private fun updateStatus(view: View, enabled: Boolean) {
-        view.findViewById<android.widget.TextView>(R.id.statusText).text =
-            if (enabled) "Активно" else "Неактивно"
+    private fun setActivation(enabled: Boolean) {
+        val context = requireContext()
+        setSwitchSilently(enabled)
+        WakeWordSettings.setEnabled(context, enabled)
+        if (enabled) WakeWordSettings.startService(context) else WakeWordSettings.stopService(context)
+        view?.let { renderStatus(it, WakeWordState.current) }
+    }
+
+    private fun setSwitchSilently(checked: Boolean) {
+        activationSwitch.setOnCheckedChangeListener(null)
+        activationSwitch.isChecked = checked
+        activationSwitch.setOnCheckedChangeListener { _, c -> onActivationChanged(c) }
+    }
+
+    private fun renderStatus(view: View, status: WakeWordState.Status) {
+        val context = requireContext()
+        val enabled = WakeWordSettings.isEnabled(context)
+        val (textRes, colorRes) = when {
+            status == WakeWordState.Status.LISTENING -> R.string.neon_status_active to R.color.neon_teal
+            status == WakeWordState.Status.UNAVAILABLE && enabled -> R.string.neon_status_unavailable to R.color.neon_danger
+            status == WakeWordState.Status.LOCKED -> R.string.neon_status_locked to R.color.neon_danger
+            else -> R.string.neon_status_inactive to R.color.neon_text_muted
+        }
+        val color = ContextCompat.getColor(context, colorRes)
+        view.findViewById<TextView>(R.id.statusText).apply {
+            setText(textRes)
+            setTextColor(color)
+        }
+        view.findViewById<ImageView>(R.id.statusIcon).setColorFilter(color)
+        view.findViewById<View>(R.id.statusWave).alpha =
+            if (status == WakeWordState.Status.LISTENING) 1f else 0.3f
+
+        if (status == WakeWordState.Status.UNAVAILABLE && enabled && isResumed) {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.neon_status_unavailable)
+                .setMessage(R.string.neon_unavailable_message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
+        }
     }
 
     private fun updateSensitivityLabel(view: View, value: Float) {
-        view.findViewById<android.widget.TextView>(R.id.sensitivityLabel).text = when {
-            value < 0.65f -> "Низкая"
-            value < 0.82f -> "Средняя"
-            else -> "Высокая"
-        }
-    }
-
-    private fun hasMicPermission(): Boolean =
-        ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.RECORD_AUDIO,
-        ) == PackageManager.PERMISSION_GRANTED
-
-    private fun requestPermissions() {
-        val requested = buildList {
-            add(Manifest.permission.RECORD_AUDIO)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                add(Manifest.permission.POST_NOTIFICATIONS)
+        view.findViewById<TextView>(R.id.sensitivityLabel).setText(
+            when {
+                value < 0.34f -> R.string.neon_sensitivity_low
+                value < 0.67f -> R.string.neon_sensitivity_medium
+                else -> R.string.neon_sensitivity_high
             }
-        }
-        permissionLauncher.launch(requested.toTypedArray())
+        )
     }
+
+    /** Slider requires the value to sit exactly on a step. */
+    private fun snap(value: Float): Float = (Math.round(value / 0.05f) * 0.05f).coerceIn(0f, 1f)
 }

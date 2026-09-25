@@ -570,6 +570,12 @@
             </intent-filter>
         </receiver>
 
+        <!--"×" action of the "Разговор с …" notification-->
+
+        <receiver
+            android:name=".wakeword.WakeLaunchNotifier$DismissReceiver"
+            android:exported="false" />
+
         <!--assistant quick settings tile service-->
 
         <service
