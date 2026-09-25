@@ -1,0 +1,67 @@
+name: Apply Neon Patch
+
+on:
+  push:
+    branches: ["feature/wake-word"]
+    paths:
+      - ".neon_patch/part13"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/wake-word
+          fetch-depth: 0
+
+      - name: Reconstruct and verify patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .neon_patch/part* | base64 -d > /tmp/neon_delta.zip
+          echo "3749d631c1dddc03bc63365bb6e53338855bb25f5f563bd8e2ba0ded3fe393ea  /tmp/neon_delta.zip" | sha256sum -c -
+
+      - name: Apply Claude neon UI delta
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          import pathlib
+          import zipfile
+
+          root = pathlib.Path(".")
+          archive = pathlib.Path("/tmp/neon_delta.zip")
+
+          with zipfile.ZipFile(archive) as zf:
+              deleted = json.loads(zf.read(".neon_deleted.json"))
+              for name in zf.namelist():
+                  if name == ".neon_deleted.json":
+                      continue
+                  target = root / name
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  target.write_bytes(zf.read(name))
+
+              for name in deleted:
+                  target = root / name
+                  if target.exists():
+                      target.unlink()
+          PY
+
+          rm -rf .neon_patch
+          rm -f .github/workflows/apply-neon-patch.yml
+
+      - name: Commit applied source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Apply Claude neon UI overhaul"
+          git push origin HEAD:feature/wake-word
