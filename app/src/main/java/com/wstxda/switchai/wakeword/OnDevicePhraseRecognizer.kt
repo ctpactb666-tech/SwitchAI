@@ -15,6 +15,7 @@ import android.os.Looper
 class OnDevicePhraseRecognizer(
     private val context: Context,
     private val onText: (String) -> Unit,
+    private val onAudioBuffer: (ByteArray) -> Unit = {},
     private val onUnavailable: () -> Unit = {},
     private val languageProvider: () -> String? = { null },
 ) : RecognitionListener {
@@ -105,7 +106,9 @@ class OnDevicePhraseRecognizer(
     override fun onReadyForSpeech(params: Bundle?) = Unit
     override fun onBeginningOfSpeech() = Unit
     override fun onRmsChanged(rmsdB: Float) = Unit
-    override fun onBufferReceived(buffer: ByteArray?) = Unit
+    override fun onBufferReceived(buffer: ByteArray?) {
+        buffer?.takeIf { it.isNotEmpty() }?.let(onAudioBuffer)
+    }
     override fun onEndOfSpeech() = Unit
     override fun onEvent(eventType: Int, params: Bundle?) = Unit
 
