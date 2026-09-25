@@ -39,7 +39,7 @@ class BluetoothWakeRouter(context: Context) {
         @Suppress("DEPRECATION")
         return runCatching {
             val adapter = BluetoothAdapter.getDefaultAdapter() ?: return@runCatching false
-            if (adapter.getProfileConnectionState(BluetoothProfile.HEADSET) != BluetoothProfile.STATE_CONNECTED) {
+            if (adapter.getProfileConnectionState(BluetoothProfile.HEADSET) != BluetoothAdapter.STATE_CONNECTED) {
                 return@runCatching false
             }
             audioManager.mode = AudioManager.MODE_IN_COMMUNICATION
