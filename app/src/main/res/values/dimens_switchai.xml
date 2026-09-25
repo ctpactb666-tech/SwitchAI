@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="bottom_nav_margin">10dp</dimen>
+    <dimen name="bottom_nav_side_margin">12dp</dimen>
+    <dimen name="bottom_nav_height">74dp</dimen>
+    <dimen name="neon_grid_gap">5dp</dimen>
+    <dimen name="neon_home_card_height">104dp</dimen>
+</resources>

@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
+        android:key="ai_control_header"
+        android:selectable="false"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/preference_ai_control_header" />
+
+    <Preference
         android:icon="@drawable/ic_open"
         android:key="digital_assistant_setup"
         android:summary="@string/pref_setup_digital_assistant_summary"
@@ -37,6 +43,12 @@
         android:icon="@drawable/ic_voice_input"
         android:key="nav_voice_input"
         android:title="@string/pref_screen_voice_input"
+        app:layout="@layout/preference_material_middle" />
+
+    <Preference
+        android:icon="@drawable/ic_voice_input"
+        android:key="nav_wake_word"
+        android:title="@string/pref_screen_wake_word"
         app:layout="@layout/preference_material_middle" />
 
     <Preference

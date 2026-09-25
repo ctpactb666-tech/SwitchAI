@@ -1,0 +1,126 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="18dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_nav_assistants"
+            app:tint="@color/neon_violet" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/SwitchAI.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neon_assistants_title" />
+
+            <TextView
+                style="@style/SwitchAI.Subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neon_assistants_subtitle" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/assistantsListen"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_neon_round_button"
+            android:contentDescription="@string/neon_listen"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_mic"
+            app:tint="@android:color/white" />
+    </LinearLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filterGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:paddingHorizontal="16dp"
+        app:chipSpacingHorizontal="8dp"
+        app:selectionRequired="true"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/filterAll"
+            style="@style/SwitchAI.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minWidth="64dp"
+            android:text="@string/neon_filter_all" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/filterPopular"
+            style="@style/SwitchAI.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neon_filter_popular" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/filterInstalled"
+            style="@style/SwitchAI.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/neon_filter_installed" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/assistantList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="12dp"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/assistantsEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/neon_assistants_empty"
+            android:textColor="@color/neon_text_muted"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/assistantsHidden"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/neon_blue"
+        android:textSize="13sp"
+        android:visibility="gone" />
+</LinearLayout>

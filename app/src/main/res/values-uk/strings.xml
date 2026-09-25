@@ -220,4 +220,29 @@
     <string name="widget_invisible_description">Невидимий віджет для доступу до вашого асистента</string>
     <!--pinning widget-->
     <string name="widget_launcher_not_supported">Ваш лаунчер не підтримує закріплення віджетів</string>
+
+    <!--voice activation-->
+    <string name="pref_screen_wake_word">Голосова активація</string>
+    <string name="pref_wake_word_enabled">Голосова активація</string>
+    <string name="pref_wake_word_enabled_summary">Слухати вибрані фрази активації у фоновому режимі</string>
+    <string name="pref_wake_word_category_phrases">Фрази активації</string>
+    <string name="pref_wake_word_phrases">Керування фразами</string>
+    <string name="pref_wake_word_phrases_summary">Додавайте власні фрази та призначайте для кожної потрібного асистента</string>
+    <string name="pref_owner_voice_category">Розпізнавання власника</string>
+    <string name="pref_owner_voice_enroll">Навчити мій голос</string>
+    <string name="pref_owner_voice_enroll_summary">Запишіть 10 різних фраз для створення локального голосового профілю</string>
+    <string name="pref_owner_voice_test">Перевірити мій голос</string>
+    <string name="pref_owner_voice_test_summary">Запустити перевірку збереженого голосового профілю</string>
+    <string name="pref_owner_voice_only">Відповідати лише на мій голос</string>
+    <string name="pref_owner_voice_only_summary">Ігнорувати команди, якщо голос не збігається з голосом власника</string>
+    <string name="pref_owner_voice_reject_action">Відповідь на чужий голос</string>
+    <string name="pref_owner_voice_reject_action_summary">Оберіть дію, якщо голос не підтверджено</string>
+    <string name="owner_voice_reject_silent">Мовчати</string>
+    <string name="owner_voice_reject_reply">Сказати «Я вас не розумію»</string>
+    <string name="pref_owner_voice_lock">Блокування після 3 помилок</string>
+    <string name="pref_owner_voice_lock_summary">Після трьох невдалих перевірок голосова активація блокується до розблокування телефона</string>
+    <string name="wake_word_notification_channel">Голосова активація</string>
+    <string name="wake_word_notification_title">SwitchAI слухає</string>
+    <string name="wake_word_notification_text">Розпізнавання голосу власника увімкнено</string>
+
 </resources>

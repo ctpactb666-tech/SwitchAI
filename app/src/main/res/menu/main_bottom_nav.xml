@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_nav_home"
+        android:title="@string/neon_nav_home" />
+    <item
+        android:id="@+id/assistantsFragment"
+        android:icon="@drawable/ic_nav_assistants"
+        android:title="@string/neon_nav_assistants" />
+    <item
+        android:id="@+id/commandsFragment"
+        android:icon="@drawable/ic_nav_commands"
+        android:title="@string/neon_nav_commands" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_nav_settings"
+        android:title="@string/neon_nav_settings" />
+</menu>

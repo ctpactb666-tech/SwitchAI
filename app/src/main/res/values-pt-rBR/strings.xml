@@ -220,4 +220,29 @@
     <string name="widget_invisible_description">Um widget invisível para acessar o seu assistente</string>
     <!--pinning widget-->
     <string name="widget_launcher_not_supported">Seu launcher não suporta a fixação de widgets</string>
+
+    <!--voice activation-->
+    <string name="pref_screen_wake_word">Ativação por voz</string>
+    <string name="pref_wake_word_enabled">Ativação por voz</string>
+    <string name="pref_wake_word_enabled_summary">Ouvir frases de ativação selecionadas em segundo plano</string>
+    <string name="pref_wake_word_category_phrases">Frases de ativação</string>
+    <string name="pref_wake_word_phrases">Gerenciar frases</string>
+    <string name="pref_wake_word_phrases_summary">Adicione frases personalizadas e associe um assistente a cada uma</string>
+    <string name="pref_owner_voice_category">Reconhecimento do proprietário</string>
+    <string name="pref_owner_voice_enroll">Treinar minha voz</string>
+    <string name="pref_owner_voice_enroll_summary">Grave 10 frases diferentes para criar um perfil de voz local</string>
+    <string name="pref_owner_voice_test">Testar minha voz</string>
+    <string name="pref_owner_voice_test_summary">Execute um teste de verificação com o perfil de voz salvo</string>
+    <string name="pref_owner_voice_only">Responder apenas à minha voz</string>
+    <string name="pref_owner_voice_only_summary">Ignorar comandos quando o locutor não corresponder ao proprietário</string>
+    <string name="pref_owner_voice_reject_action">Resposta a voz desconhecida</string>
+    <string name="pref_owner_voice_reject_action_summary">Escolha o que acontece quando o locutor não é verificado</string>
+    <string name="owner_voice_reject_silent">Ficar em silêncio</string>
+    <string name="owner_voice_reject_reply">Dizer “Não entendo você”</string>
+    <string name="pref_owner_voice_lock">Bloquear após 3 falhas</string>
+    <string name="pref_owner_voice_lock_summary">Após três falhas, a ativação por voz fica bloqueada até o telefone ser desbloqueado</string>
+    <string name="wake_word_notification_channel">Ativação por voz</string>
+    <string name="wake_word_notification_title">SwitchAI está ouvindo</string>
+    <string name="wake_word_notification_text">O reconhecimento da voz do proprietário está ativado</string>
+
 </resources>

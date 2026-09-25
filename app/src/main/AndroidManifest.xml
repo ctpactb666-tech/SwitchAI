@@ -17,6 +17,14 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--voice activation permissions-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".SwitchAI"
         android:allowBackup="false"
@@ -545,6 +553,30 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!--voice activation foreground service-->
+
+        <service
+            android:name=".wakeword.WakeWordService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+
+        <!--reset owner voice lock after device unlock-->
+
+        <receiver
+            android:name=".wakeword.DeviceUnlockReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.USER_UNLOCKED" />
+            </intent-filter>
+        </receiver>
+
+        <!--"×" action of the "Разговор с …" notification-->
+
+        <receiver
+            android:name=".wakeword.WakeLaunchNotifier$DismissReceiver"
+            android:exported="false" />
 
         <!--assistant quick settings tile service-->
 

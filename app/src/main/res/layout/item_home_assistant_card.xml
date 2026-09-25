@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="0dp"
+    android:layout_height="104dp"
+    android:background="@drawable/bg_neon_card_glow"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:id="@+id/cardTile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:background="@drawable/bg_icon_chatgpt">
+
+        <ImageView
+            android:id="@+id/cardIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            app:tint="@android:color/white"
+            tools:src="@drawable/ic_assistant_chatgpt" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/cardName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/neon_text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        tools:text="ChatGPT" />
+</LinearLayout>

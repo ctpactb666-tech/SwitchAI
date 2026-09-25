@@ -27,6 +27,7 @@ aboutlibraries-view = { module = "com.mikepenz:aboutlibraries", version.ref = "a
 markdown-core = { module = "io.noties.markwon:core", version.ref = "markdown" }
 markdown-linkify = { module = "io.noties.markwon:linkify", version.ref = "markdown" }
 
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }

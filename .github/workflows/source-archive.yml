@@ -1,0 +1,30 @@
+name: Source Archive
+
+on:
+  push:
+    branches:
+      - feature/wake-word
+  workflow_dispatch:
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Create source ZIP
+        run: |
+          zip -qr SwitchAI-current-source.zip . \
+            -x ".git/*" \
+            -x "SwitchAI-current-source.zip" \
+            -x "app/build/*" \
+            -x "build/*" \
+            -x ".gradle/*"
+
+      - name: Upload source ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: SwitchAI-current-source
+          path: SwitchAI-current-source.zip
+          retention-days: 14

@@ -224,4 +224,34 @@
     <string name="widget_invisible_description">An invisible widget to access your assistant</string>
     <!--pinning widget-->
     <string name="widget_launcher_not_supported">Your launcher does not support widget pinning</string>
+
+    <!--voice activation-->
+    <string name="pref_screen_wake_word">Voice activation</string>
+    <string name="pref_wake_word_enabled">Voice activation</string>
+    <string name="pref_wake_word_enabled_summary">Listen for selected activation phrases in the background</string>
+    <string name="pref_wake_word_category_phrases">Activation phrases</string>
+    <string name="pref_wake_word_phrases">Manage phrases</string>
+    <string name="pref_wake_word_phrases_summary">Add custom phrases and assign an assistant to each one</string>
+    <string name="pref_owner_voice_category">Owner recognition</string>
+    <string name="pref_owner_voice_enroll">Train my voice</string>
+    <string name="pref_owner_voice_enroll_summary">Record 10 different phrases to create a local voice profile</string>
+    <string name="pref_owner_voice_test">Test my voice</string>
+    <string name="pref_owner_voice_test_summary">Run a verification test against the saved voice profile</string>
+    <string name="pref_owner_voice_only">Only respond to my voice</string>
+    <string name="pref_owner_voice_only_summary">Ignore commands when the speaker does not match the owner</string>
+    <string name="pref_owner_voice_reject_action">Unknown voice response</string>
+    <string name="pref_owner_voice_reject_action_summary">Choose what happens when the speaker is not verified</string>
+    <string name="owner_voice_reject_silent">Stay silent</string>
+    <string name="owner_voice_reject_reply">Say “I do not understand you”</string>
+    <string name="pref_owner_voice_lock">Lock after 3 failures</string>
+    <string name="pref_owner_voice_lock_summary">After three failed checks, voice activation remains locked until the phone is unlocked</string>
+    <string name="wake_word_notification_channel">Voice activation</string>
+    <string name="wake_word_notification_title">SwitchAI is listening</string>
+    <string name="wake_word_notification_text">Owner voice recognition is enabled</string>
+
+    <string name="neon_overlay_ready" translatable="false">Готов к голосовой команде</string>
+    <string name="neon_overlay_open" translatable="false">Открыть SwitchAI</string>
+    <string name="neon_overlay_notification" translatable="false">Плавающий микрофон активен</string>
+    <string name="neon_overlay_channel" translatable="false">Плавающий микрофон</string>
+
 </resources>

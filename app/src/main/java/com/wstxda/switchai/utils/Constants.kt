@@ -61,6 +61,7 @@ object Constants {
 
     const val NAV_SELECTOR_PREF_KEY = "nav_selector"
     const val NAV_VOICE_INPUT_PREF_KEY = "nav_voice_input"
+    const val NAV_WAKE_WORD_PREF_KEY = "nav_wake_word"
     const val NAV_ACCESSIBILITY_PREF_KEY = "nav_accessibility"
     const val NAV_SHORTCUTS_PREF_KEY = "nav_shortcuts"
     const val NAV_APPEARANCE_PREF_KEY = "nav_appearance"

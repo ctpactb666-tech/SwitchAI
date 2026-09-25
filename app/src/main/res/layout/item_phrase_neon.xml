@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/bg_neon_card"
+    android:gravity="center_vertical"
+    android:minHeight="74dp"
+    android:orientation="horizontal"
+    android:paddingStart="6dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/phraseDrag"
+        android:layout_width="40dp"
+        android:layout_height="48dp"
+        android:contentDescription="@string/neon_phrase_reorder"
+        android:padding="10dp"
+        android:src="@drawable/ic_tune_small"
+        app:tint="@color/ai_text_secondary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/phraseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/neon_text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="«Слушай, Джарвис»" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/phraseAssistantTile"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                tools:background="@drawable/bg_icon_chatgpt">
+
+                <ImageView
+                    android:id="@+id/phraseAssistantIcon"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    app:tint="@android:color/white"
+                    tools:src="@drawable/ic_assistant_chatgpt" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/phraseAssistant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/ai_text_secondary"
+                android:textSize="12sp"
+                tools:text="ChatGPT" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/phraseEnabled"
+        style="@style/SwitchAI.Switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_chevron_right"
+        app:tint="@color/ai_text_secondary" />
+</LinearLayout>

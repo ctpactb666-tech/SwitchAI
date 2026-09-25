@@ -1,0 +1,130 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <!--bottom navigation-->
+    <string name="neon_nav_home">Главная</string>
+    <string name="neon_nav_assistants">Ассистенты</string>
+    <string name="neon_nav_commands">Команды</string>
+    <string name="neon_nav_settings">Настройки</string>
+
+    <!--common-->
+    <string name="neon_back">Назад</string>
+    <string name="neon_listen">Слушать</string>
+    <string name="neon_close">Закрыть</string>
+    <string name="neon_cancel">Отменить</string>
+    <string name="neon_save">Сохранить</string>
+    <string name="neon_delete">Удалить</string>
+    <string name="neon_installed">Установлен</string>
+    <string name="neon_not_installed">Не установлен</string>
+    <string name="neon_quoted">«%1$s»</string>
+
+    <!--home-->
+    <string name="neon_home_subtitle">Ваш единый центр AI-ассистентов</string>
+    <string name="neon_home_waiting">Ожидание фразы…</string>
+    <string name="neon_home_off">Голосовая активация выключена</string>
+    <string name="neon_home_unavailable">Распознавание на устройстве недоступно</string>
+    <string name="neon_home_locked">Заблокировано: разблокируйте телефон</string>
+    <string name="neon_home_no_phrases">Добавьте фразу активации</string>
+    <string name="neon_home_toggle">Включить или выключить голосовую активацию</string>
+    <string name="neon_home_phrases">Фразы активации</string>
+
+    <!--assistants-->
+    <string name="neon_assistants_title">Ассистенты</string>
+    <string name="neon_assistants_subtitle">Выберите AI-помощника</string>
+    <string name="neon_filter_all">Все</string>
+    <string name="neon_filter_popular">Популярные</string>
+    <string name="neon_filter_installed">Установленные</string>
+    <string name="neon_assistants_empty">Здесь пока пусто</string>
+    <string name="neon_assistants_hidden">Скрытые ассистенты: %1$d. Нажмите, чтобы вернуть</string>
+    <string name="neon_launch_assistant">Запустить %1$s</string>
+
+    <!--voice activation-->
+    <string name="neon_activation_title">Голосовая активация</string>
+    <string name="neon_activation_enable">Включить голосовую активацию</string>
+    <string name="neon_activation_enable_summary">Приложение будет слушать заданные фразы</string>
+    <string name="neon_status">Статус</string>
+    <string name="neon_status_active">Активно</string>
+    <string name="neon_status_inactive">Неактивно</string>
+    <string name="neon_status_unavailable">Недоступно на этом устройстве</string>
+    <string name="neon_status_locked">Заблокировано</string>
+    <string name="neon_sensitivity">Чувствительность</string>
+    <string name="neon_sensitivity_low">Низкая</string>
+    <string name="neon_sensitivity_medium">Средняя</string>
+    <string name="neon_sensitivity_high">Высокая</string>
+    <string name="neon_locked_screen">Работать при заблокированном экране</string>
+    <string name="neon_bluetooth">Запускать при Bluetooth-гарнитуре</string>
+    <string name="neon_sound">Звуковое подтверждение</string>
+    <string name="neon_vibration">Вибрация при срабатывании</string>
+    <string name="neon_mic_permission_needed">Для голосовой активации нужен доступ к микрофону</string>
+    <string name="neon_unavailable_message">Телефон не поддерживает распознавание речи на устройстве (нужен Android 12+ и офлайн-пакет языка в настройках Google). Фоновое прослушивание работать не будет, но кнопка микрофона на главной работает.</string>
+
+    <!--phrases-->
+    <string name="neon_phrases_title">Фразы активации</string>
+    <string name="neon_phrases_add">Добавить фразу</string>
+    <string name="neon_phrases_empty">Фраз пока нет. Нажмите «+», чтобы добавить первую.</string>
+    <string name="neon_phrase_delete_title">Удалить фразу?</string>
+    <string name="neon_phrase_reorder">Перетащите, чтобы изменить порядок</string>
+
+    <!--add phrase-->
+    <string name="neon_add_phrase_title">Добавить фразу</string>
+    <string name="neon_edit_phrase_title">Изменить фразу</string>
+    <string name="neon_phrase_label">Фраза для активации</string>
+    <string name="neon_phrase_hint">Например: Слушай, Алиса</string>
+    <string name="neon_phrase_helper">Можно указать несколько вариантов фразы через «;»</string>
+    <string name="neon_phrase_empty_error">Введите фразу</string>
+    <string name="neon_phrase_clear">Очистить</string>
+    <string name="neon_choose_assistant">Выберите ассистента</string>
+    <string name="neon_language">Язык распознавания</string>
+    <string name="neon_language_auto">Автоопределение</string>
+    <string name="neon_language_ru">Русский</string>
+    <string name="neon_language_en">English</string>
+    <string name="neon_advanced">Дополнительные настройки</string>
+    <string name="neon_exact_match">Точное совпадение</string>
+    <string name="neon_ignore_music">Игнорировать в музыке</string>
+    <string name="neon_offline">Работать в офлайн режиме</string>
+    <string name="neon_delete_phrase">Удалить фразу</string>
+    <string name="neon_phrase_saved">Фраза сохранена</string>
+
+    <!--assistant settings-->
+    <string name="neon_assistant_settings_title">Настройки ассистента</string>
+    <string name="neon_voice_mode">Запускать голосовой режим</string>
+    <string name="neon_voice_input">Использовать голосовой ввод</string>
+    <string name="neon_auto_conversation">Автоматически начинать разговор</string>
+    <string name="neon_priority">Показывать приоритетно</string>
+    <string name="neon_check_availability">Проверить доступность</string>
+    <string name="neon_open_app">Открыть приложение</string>
+    <string name="neon_more_settings">Дополнительные настройки</string>
+    <string name="neon_remove_from_list">Удалить из списка</string>
+    <string name="neon_available">%1$s доступен</string>
+    <string name="neon_unavailable">%1$s не установлен. Открыть страницу в магазине?</string>
+    <string name="neon_open_store">Открыть</string>
+    <string name="neon_remove_title">Убрать %1$s из списка?</string>
+    <string name="neon_remove_message">Приложение не будет удалено с телефона — ассистент только пропадёт из списков SwitchAI. Вернуть можно внизу экрана «Ассистенты».</string>
+    <string name="neon_remove_confirm">Убрать</string>
+    <string name="neon_voice_mode_unsupported">Этот ассистент не поддерживает голосовой режим</string>
+
+    <!--listening-->
+    <string name="neon_listening_subtitle">Голосовая активация</string>
+    <string name="neon_listening">Слушаю…</string>
+    <string name="neon_listening_say">Скажите: «%1$s»</string>
+    <string name="neon_listening_say_name">Скажите фразу или имя ассистента</string>
+    <string name="neon_listening_heard">Распознано: «%1$s»</string>
+    <string name="neon_listening_not_matched">Не нашёл такую фразу. Попробуйте ещё раз</string>
+    <string name="neon_listening_error">Не расслышал. Попробуйте ещё раз</string>
+    <string name="neon_listening_launching">Запускаю %1$s…</string>
+    <string name="neon_listening_no_recognizer">Распознавание речи недоступно на этом устройстве</string>
+
+    <!--commands-->
+    <string name="neon_commands_title">Команды</string>
+    <string name="neon_commands_subtitle">Голос, фразы и автоматизация</string>
+    <string name="neon_commands_activation_summary">Включение, чувствительность и реакция</string>
+    <string name="neon_commands_phrases_summary">Добавляйте и включайте свои команды</string>
+    <string name="neon_commands_owner">Мой голос</string>
+    <string name="neon_commands_owner_summary">Обучение и контрольная проверка</string>
+    <string name="neon_commands_test">Проверить фразу</string>
+    <string name="neon_commands_test_summary">Скажите фразу и посмотрите, что сработает</string>
+
+    <!--launch notification-->
+    <string name="neon_notification_channel">Запуск ассистента</string>
+    <string name="neon_notification_conversation">Разговор с %1$s…</string>
+    <string name="neon_notification_tap_to_start">Нажмите, чтобы начать разговор с %1$s</string>
+</resources>
