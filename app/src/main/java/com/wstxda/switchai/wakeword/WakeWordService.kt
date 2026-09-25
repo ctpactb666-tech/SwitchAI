@@ -23,11 +23,14 @@ class WakeWordService : Service() {
         maxSamples = MicrophoneAudioSource.DEFAULT_SAMPLE_RATE * OWNER_SAMPLE_SECONDS,
     )
     private val speakerEngine by lazy { SherpaSpeakerEmbeddingEngine(this) }
+    private val bluetoothRouter by lazy { BluetoothWakeRouter(this) }
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
         startAsForeground()
+
+        bluetoothRouter.applyIfEnabled()
 
         phraseRecognizer = OnDevicePhraseRecognizer(
             context = this,
@@ -67,6 +70,7 @@ class WakeWordService : Service() {
         phraseRecognizer?.stop()
         phraseRecognizer = null
         recognizerAudio.clear()
+        bluetoothRouter.clear()
         if (WakeWordState.current == WakeWordState.Status.LISTENING) {
             WakeWordState.set(WakeWordState.Status.STOPPED)
         }
