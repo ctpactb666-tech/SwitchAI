@@ -19,6 +19,10 @@ class WakeWordService : Service() {
     private val coordinator by lazy { WakeWordCoordinator(this) }
     private val phraseStore by lazy { WakePhraseStore(this) }
     private var phraseRecognizer: OnDevicePhraseRecognizer? = null
+    private val recognizerAudio = RecentAudioBuffer(
+        maxSamples = MicrophoneAudioSource.DEFAULT_SAMPLE_RATE * OWNER_SAMPLE_SECONDS,
+    )
+    private val speakerEngine by lazy { SherpaSpeakerEmbeddingEngine(this) }
 
     override fun onCreate() {
         super.onCreate()
@@ -28,7 +32,8 @@ class WakeWordService : Service() {
         phraseRecognizer = OnDevicePhraseRecognizer(
             context = this,
             onText = { recognized ->
-                when (coordinator.onRecognizedText(recognized)) {
+                val embedding = currentOwnerEmbedding()
+                when (coordinator.onRecognizedText(recognized, embedding)) {
                     WakeWordCoordinator.Result.Locked -> {
                         WakeWordState.set(WakeWordState.Status.LOCKED)
                         stopSelf()
@@ -37,6 +42,7 @@ class WakeWordService : Service() {
                     else -> Unit
                 }
             },
+            onAudioBuffer = { pcm -> appendRecognizerAudio(pcm) },
             onUnavailable = {
                 WakeWordState.set(WakeWordState.Status.UNAVAILABLE)
                 stopSelf()
@@ -60,6 +66,7 @@ class WakeWordService : Service() {
     override fun onDestroy() {
         phraseRecognizer?.stop()
         phraseRecognizer = null
+        recognizerAudio.clear()
         if (WakeWordState.current == WakeWordState.Status.LISTENING) {
             WakeWordState.set(WakeWordState.Status.STOPPED)
         }
@@ -67,6 +74,29 @@ class WakeWordService : Service() {
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+    private fun appendRecognizerAudio(pcm: ByteArray) {
+        if (pcm.size < 2) return
+        val sampleCount = pcm.size / 2
+        val samples = FloatArray(sampleCount)
+        var offset = 0
+        for (index in 0 until sampleCount) {
+            val low = pcm[offset].toInt() and 0xff
+            val high = pcm[offset + 1].toInt()
+            val value = (high shl 8) or low
+            samples[index] = value.toShort() / 32768.0f
+            offset += 2
+        }
+        recognizerAudio.append(samples)
+    }
+
+    private fun currentOwnerEmbedding(): FloatArray? {
+        if (!WakeWordSettings.getBoolean(this, WakeWordSettings.KEY_OWNER_ONLY, true)) return null
+        if (!speakerEngine.isReady) return null
+        val samples = recognizerAudio.snapshot()
+        if (samples.size < MicrophoneAudioSource.DEFAULT_SAMPLE_RATE) return null
+        return speakerEngine.compute(samples, MicrophoneAudioSource.DEFAULT_SAMPLE_RATE)
+    }
 
     /** Most common explicit language among enabled phrases; null = device default. */
     private fun preferredLanguage(): String? =
@@ -116,5 +146,6 @@ class WakeWordService : Service() {
     companion object {
         private const val CHANNEL_ID = "wake_word_service"
         private const val NOTIFICATION_ID = 4101
+        private const val OWNER_SAMPLE_SECONDS = 4
     }
 }
