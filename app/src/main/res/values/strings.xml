@@ -249,9 +249,9 @@
     <string name="wake_word_notification_title">SwitchAI is listening</string>
     <string name="wake_word_notification_text">Owner voice recognition is enabled</string>
 
-    <string name="neon_overlay_ready">Готов к голосовой команде</string>
-    <string name="neon_overlay_open">Открыть SwitchAI</string>
-    <string name="neon_overlay_notification">Плавающий микрофон активен</string>
-    <string name="neon_overlay_channel">Плавающий микрофон</string>
+    <string name="neon_overlay_ready" translatable="false">Готов к голосовой команде</string>
+    <string name="neon_overlay_open" translatable="false">Открыть SwitchAI</string>
+    <string name="neon_overlay_notification" translatable="false">Плавающий микрофон активен</string>
+    <string name="neon_overlay_channel" translatable="false">Плавающий микрофон</string>
 
 </resources>
